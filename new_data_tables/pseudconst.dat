@@ -1,0 +1,31 @@
+This file contains constants for calculating pseudoknot penalty
+for SHAPEknots program.
+
+
+Constant 'a' is the single-stranded length. It is being  multiplied 
+by unpaired nucleotide count. 
+a is 	        --> 0.0
+
+Constant 'b' is the nested helix length. It is being multiplied 
+by number of internal branches.
+b is 	        --> 15
+
+Constants 'c#" is the internal pseudoknot length. It is being  multiplied 
+by number of spanning helixes with length '#' nucleotides.
+c2 is 	       	--> 0.0
+c3 is 		--> 0.0
+c4 is 		--> 0.0
+c5 is 		--> 0.0
+c6 is 		--> 0.0
+c7 is 		--> 0.0
+c8 is 		--> 0.0
+c9 is 		--> 0.0
+c10 is		--> 0.0
+c11 is		--> 0.0
+c12 is		--> 0.0
+c13 is		--> 0.0
+c14 is		--> 38
+
+Constant 'c15' is multiplied by number of spanning helix longer then 14 nucleotides  
+c15 is 		--> 42
+

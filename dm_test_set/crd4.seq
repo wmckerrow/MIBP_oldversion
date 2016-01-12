@@ -1,0 +1,26 @@
+;  TOIG of: Cr16s.Gen  check: 3212  from: 1  to: 1476 (domain 4 -> 148 bases)
+;  
+;  
+; LOCUS       CRECPRGD     1986 bp    DNA             ORG       22-FEB-1985
+; DEFINITION  C.reinhardtii chloroplast 16s rRNA gene and flanks.
+; ACCESSION   J01395
+; KEYWORDS    16S ribosomal RNA; ribosomal RNA.
+; SOURCE      Alga (C.reinhardtii) chloroplast DNA.
+;   ORGANISM  Chloroplast Chlamydomonas reinhardtii
+;             Chloroplastida; Phycophyta; Chlorophyceae; Volvocales.
+; REFERENCE   1  (bases 1 to 1986)
+;   AUTHORS   Dron,M., Rahire,M. and Rochaix,J.-D.
+;   TITLE     Sequence of the chloroplast 16s rRNA gene and its surrounding
+;             regions of chlamydomonas reinhardii
+;   JOURNAL   Nucl Acid Res 10, 7609-7620 (1982)
+;   STANDARD  simple staff_review
+; FEATURES       from  to/span     description
+;     rRNA        223      715     16S rRNA
+; BASE COUNT      578 a    414 c    514 g    462 t     18 others
+; ORIGIN      237 bp upstream of Sau3A site.
+; 
+;    Cr16s.Gen  Length: 1476  January 22, 1989  18:49  Check: 3212  
+crd4_phy.seq        
+ CACACCGCCCGTCACACCATGGAAGCTGGTTCTGCTCCAAGTCGTTACCC
+ TAACCTTCGGGAGGGGGGCGCCTAAAGCAGGGCTAGTGACTAGGGTGAAG
+ TCGTAACAAGGTAGGGCTACTGGAAGGTGGCCCTGGCTCACCTCCTTC1

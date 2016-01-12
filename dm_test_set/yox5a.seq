@@ -1,0 +1,35 @@
+;  TOIG of: Scox5a.Gen  check: 381  from: 1  to: 525
+;  
+;  
+; LOCUS       YSCMTCOC1    3544 bp    DNA             ORG       02-JUL-1984
+; DEFINITION  yeast (s.cerevisiae) mitochondrial cox1 gene for cytochrome c
+;             oxidase subunit 1, urf-containing ivs.
+; ACCESSION   J01477
+; KEYWORDS    cytochrome oxidase; oxidase; unidentified reading frame.
+; SOURCE      yeast (s.cerevisiae, strain d273-10b) mitochondrial dna.
+;   ORGANISM  Mitochondrion Saccharomyces cerevisiae
+;             Mitochondria; Planta; Mycophyta; Ascomycetes.
+; REFERENCE   1  (bases 1 to 3544)
+;   AUTHORS   Hensgens,L.A.M., Bonen,L., De Haan,M., Van der Horst,G. and
+;             Grivell,L.A.
+;   TITLE     two intron sequences in yeast mitochondrial cox1 gene: homology
+;             among urf-containing introns and strain-dependent variation in
+;             flanking exons
+;   JOURNAL   Cell 32, 379-389 (1983)
+;   STANDARD  simple staff_review
+; BASE COUNT     1512 a    287 c    351 g   1394 t
+; ORIGIN
+; 
+;   Yscmtcoc1.Gen  Length: 525  January 17, 1989  10:25  Check: 381  ..
+scox5agen
+TCTCATGATTAATAAATCCCTTTAGCAAGGATAAA
+AATAAAAATAAAAATAAAAAGTTGATCAGAAATTA
+TCAAAAAATAAATAATAATNNNTTTATTATTTACT
+TTTTTGATATATATAGAGGCAAACTCGAGGAAAAC
+CATATAATTAGAATAAGTAATAATTATATGACAAC
+CGTCGAACTAAATCATATTCAAGAAATTAATATGT
+AAAAGCGTAGAGATTAGACGCCTCTGGTTATCTAA
+GTAATATATATATATATATTATATGATAACATAAG
+GTATAATCCAATGAGATCAGTAATGATTTTANNN
+TTGAAACT
+GAAATGTTTTAAAGTTAAATAAAAG1

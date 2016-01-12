@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+	<style>
+	#scatterButton {}
+	body {
+		position: absolute;
+	}
+	.nodes:hover {
+		fill: orange;
+	}
+	div.bar {
+		display: inline-block;
+		width: 20px;
+		height: 100px;
+		background-color: teal;
+	}
+	.tooltip {
+		pointer-events: none;
+	}
+	.axis path, .axis line {
+		fill: none;
+		stroke: black;
+		shape-rendering: crispEdges; 
+	}
+	.axis text {
+	    font-family: sans-serif;
+	    font-size: 11px;
+	}
+	</style>
+    <head>
+        <meta charset="utf-8">
+        <title>RNA Secondary Structure Visualization</title>
+        <script type="text/javascript" src="http://mbostock.github.com/d3/d3.js"></script>
+    </head>
+    <body>
+		
+		
+        <script type="text/javascript">
+		
+		/*
+        RNA
+		*/
+
+		
+		var RNA_name = "5s-1_2bit_0001min";
+		var folder = "jsons/"
+		var strings = ['','0','1','10','11','100','101','1000','1001','10000','10001','110','111','1010','1011']; //folder: x02627/
+		
+		var treeDepth = 5;
+
+		var binaryTree = function(n) {
+			var strings = [''];
+			for (var i = 0; i < n; i++) {
+				var temp = [];
+				for (var j = 0; j < strings.length; j++) {
+					temp.push(strings[j] + '0');
+					temp.push(strings[j] + '1');
+				}
+				strings = strings.concat(temp);
+			}
+			var edges = [];
+			for (i = 0; i < strings.length; i++) {
+				if (strings[i].length < n) {
+					edges.push([strings[i], strings[i] + '0']);
+					edges.push([strings[i], strings[i] + '1']);
+				}
+			}
+			return {"strings": strings, "edgePairs": edges};
+		};
+		
+		
+
+		var makeEdges = function(strings) {
+			var edges = [];
+			for (i = 0; i < strings.length; i++) {
+				if (strings.indexOf(strings[i] + '0') > -1) {
+					edges.push([strings[i], strings[i] + '0']);
+					edges.push([strings[i], strings[i] + '1']);
+				}			
+			}
+			return edges
+		};
+		
+		var edgePairs = makeEdges(strings);
+		var totalQ;
+		var constrainedQ;
+		var totalStructs;
+		var constrainedStructs;
+		var remaining = 0;
+		var filename = folder + RNA_name + "_.json";
+		var whole_dataset = {};
+		for (var i = 0; i < strings.length; i++) {
+			remaining++;
+			console.log(strings[i]);
+			filename = folder + RNA_name + "_" + strings[i] + ".json"
+			d3.json(filename, function(json) {
+				var stringname = json.tree_path;
+				whole_dataset[stringname] = json;
+				remaining--;
+				if (remaining === 0) {
+					totalQ = whole_dataset[''].Q[0].toExponential();
+					constrainedQ = whole_dataset[''].Q[1].toExponential();
+					totalStructs = whole_dataset[''].num_structs[0].toExponential();
+					constrainedStructs = whole_dataset[''].num_structs[1].toExponential();
+					visualize_tree();
+					visualize(whole_dataset['']);
+				}
+			});	
+		}
+		
+		var w = 500;
+		var h = 500;
+		var n = 120;
+
+		
+			var visualize_tree = function() {
+				var node_data = [];
+				for (i = 0; i < strings.length; i++) {
+					var temp = {};
+					temp.tree_path = strings[i];
+					temp.Q = whole_dataset[strings[i]].Q;
+					temp.num_structs = whole_dataset[strings[i]].num_structs;
+					node_data.push(temp);
+				}
+				var w1 = 180*treeDepth;
+				var h1 = 500;
+				var yBuffer = 200;
+				var maxNodeRad = 35;
+				var nodeScale = d3.scale.linear()
+					.domain([0,1])
+					.range([0, maxNodeRad]);
+				var maxLengthString = treeDepth;
+				var svg1 = d3.select("body").append("svg")
+					.attr("width", w1)
+					.attr("height", h1);
+				var xBufferScale = d3.scale.linear()
+					.domain([0, w1])
+					.range([75, w1 - 75]);
+				var nodeX = function(d) {
+					var startX = w1/2;
+					if (d.length === 0){
+						return startX;
+					} else {
+						for (var i = 0; i < d.length; i++) {
+							if(d[i] === '0') {
+								startX -= w1/Math.pow(2, i + 2);
+							} else {
+								startX += w1/Math.pow(2, i + 2);
+							}
+						}
+						return xBufferScale(startX);
+					}
+				};
+				var nodeY = function(d) {
+					return ((h1 - 50 - yBuffer)/maxLengthString) * d.length + yBuffer;
+				};
+				
+				var edges = svg1.selectAll("line")
+					.data(edgePairs)
+					.enter()
+					.append("line")
+					.attr("x1", function(d) {
+						return nodeX(d[0]);
+					})
+					.attr("x2", function(d) {
+						return nodeX(d[1]);
+					})
+					.attr("y1", function(d) {
+						return nodeY(d[0]);
+					})
+					.attr("y2", function(d) {
+						return nodeY(d[1]);
+					})
+					.attr("stroke", "black")
+					.attr("stroke-width", "2px");
+				var nodes = svg1.selectAll("circle")
+					.data(node_data)
+					.enter()
+					.append("circle")
+					.attr("class", "nodes")
+					.attr("r", function(d) {
+						return nodeScale(Math.sqrt(d.Q[0]/totalQ));
+					})
+					.attr("cx", function(d){
+						return nodeX(d.tree_path);
+					})
+					.attr("cy", function(d) {
+						return nodeY(d.tree_path);
+					})
+					.attr("fill", "white")
+					.attr("stroke", "black")
+					.attr("stroke-width", "2px");
+
+				var labels = svg1.selectAll("text")
+					.data(node_data)
+					.enter()
+					.append("text")
+					.style("pointer-events", "none")
+					.attr("x", function(d) {
+						return nodeX(d.tree_path);
+					})
+					.attr("y", function(d) {
+						if (d.Q[0]/totalQ > 0.1) {
+							return nodeY(d.tree_path) + 5;
+						}
+					})
+					.text(function(d) {
+						return d.tree_path;
+					})
+					.attr("fill", "black")
+					.attr("text-anchor", "middle")
+					.attr("font-family", "sans-serif");
+				nodes.on("click", function(d) {
+					var temp_data = d3.select(this).data()[0];
+					d3.selectAll(".tooltip").remove();
+					var tooltipWidth = 195;
+					var tooltipHeight = 140;
+					var xPosition = parseFloat(d3.select(this).attr("cx")) - tooltipWidth/2;
+					var yPosition = parseFloat(d3.select(this).attr("cy")) - d3.select(this).attr("r") - tooltipHeight - 5;
+
+					console.log("xposition");
+					console.log(xPosition);
+
+					svg1.append("rect")
+						.attr("class", "tooltip")
+						.attr("x", xPosition)
+						.attr("y", yPosition)
+						.attr("width", tooltipWidth)
+						.attr("height", tooltipHeight)
+						.attr("opacity", .9)
+						.attr("fill", "rgb(255, 255, 255)")
+						.style("stroke", "rgb(96, 96, 96)");
+
+
+					svg1.append("polygon")
+						.attr("points", (xPosition + tooltipWidth/2 - 6) + "," + (yPosition + tooltipHeight) + " " + (xPosition + tooltipWidth/2 + 6) + "," + (yPosition + tooltipHeight) +
+								" " + (xPosition + tooltipWidth/2) + ","  + (yPosition + tooltipHeight + 6))
+						.attr("class", "tooltip")
+						.attr("fill", "rgb(255, 255, 255)")
+						.attr("opacity", 0.9);
+					
+					svg1.append("text")
+						.attr("x", parseFloat(d3.select(this).attr("cx")) - tooltipWidth/2 + 5)
+						.attr("y", yPosition + tooltipHeight/8)
+						.text('Number of Structures')
+						.style("font-family", "sans-serif")
+						.style("font-weight", "bold")
+						.style("font-size", "15px")
+						.attr("class", "tooltip");
+					svg1.append("text")
+						.attr("x", parseFloat(d3.select(this).attr("cx")) - tooltipWidth/2 + 15)
+						.attr("y", yPosition + tooltipHeight/4)
+						.text(function() {
+							return "Unconstrained: " + temp_data.num_structs[0].toExponential();
+						})
+						.style("font-family", "sans-serif")
+						.style("font-size", "14px")
+						.attr("class", "tooltip");
+					svg1.append("text")
+						.attr("x", parseFloat(d3.select(this).attr("cx")) - tooltipWidth/2 + 15)
+						.attr("y", yPosition + 3*tooltipHeight/8)
+						.text(function() {
+							return "Constrained: " + temp_data.num_structs[1].toExponential();
+						})
+						.style("font-family", "sans-serif")
+						.style("font-size", "14px")
+						.attr("class", "tooltip");
+					svg1.append("text")
+						.attr("x", parseFloat(d3.select(this).attr("cx")) - tooltipWidth/2 + 5)
+						.attr("y", yPosition + 5*tooltipHeight/8)
+						.text('Probability Mass')
+						.style("font-family", "sans-serif")
+						.style("font-weight", "bold")
+						.style("font-size", "15px")
+						.attr("class", "tooltip");
+					svg1.append("text")
+						.attr("x", parseFloat(d3.select(this).attr("cx")) - tooltipWidth/2 + 15)
+						.attr("y", yPosition + 3*tooltipHeight/4)
+						.text(function() {
+							return "Unconstrained: " + (temp_data.Q[0]/totalQ).toFixed(3);
+						})
+						.style("font-family", "sans-serif")
+						.style("font-size", "14px")
+						.attr("class", "tooltip");
+					svg1.append("text")
+						.attr("x", parseFloat(d3.select(this).attr("cx")) - tooltipWidth/2 + 15)
+						.attr("y", yPosition + 7*tooltipHeight/8)
+						.text(function() {
+							return "Constrained: " + (temp_data.Q[1]/totalQ).toFixed(3);
+						})
+						.style("font-family", "sans-serif")
+						.style("font-size", "14px")
+						.attr("class", "tooltip");	
+					visualize(whole_dataset[d.tree_path])
+				});
+			}
+		
+		
+		var svg = d3.select("body").append("svg")
+            .attr("width", w)
+            .attr("height", h)
+			.attr("class", "rna");
+
+		var visualize = function(dataset) {
+			/* variables for entire ensemble:
+			totalQ
+			constrainedQ
+			totalStructs
+			constrainedStructs
+			*/
+			var clusterQ = dataset.Q[0].toExponential();
+			var clusterConstrainedQ = dataset.Q[1].toExponential();
+			var clusterStructs = dataset.num_structs[0].toExponential();
+			var clusterConstrainedStructs = dataset.num_structs[1].toExponential();
+			d3.select("#structures_html").remove();
+			d3.select("#probability_html").remove();
+			
+			
+			var w = 500;
+			var h = 500;
+			var n = dataset.nucleotides.length;
+			d3.select(".rna").remove();
+			var svg = d3.select("body").append("svg")
+	            .attr("width", w)
+	            .attr("height", h)
+				.attr("class", "rna");
+	        
+			
+
+	        var polar2xy = function(r, theta) {
+				theta = -1*theta + Math.PI/2; // realign angle to correct for a previous display error
+	            var x0 = w/2;
+	            var y0 = h/2;
+	            var x1 = r*Math.cos(theta);
+	            var y1 = r*Math.sin(theta);
+	            var x = x0 + x1;
+	            var y = y0 - y1;
+	            return [x, y];
+	        };
+
+	        var circlePadding = w/10;
+	        var bigRadius = w/2 - circlePadding;
+	        var littleTheta = (2*Math.PI)/n;
+	        var circles = svg.selectAll("circle")
+	            .data(dataset.nucleotides)
+	            .enter()
+	            .append("circle")
+	            .attr("cx", function(d) {
+	                var theta = littleTheta*d;
+	                return(polar2xy(bigRadius, theta)[0]);
+	            })
+	            .attr("cy", function(d) {
+	                var theta = littleTheta*d;
+	                return(polar2xy(bigRadius, theta)[1]);
+	            })
+	            .attr("r", 3)
+	            .attr("fill", "black");
+
+        
+	        var bigCircle = svg.append("circle")
+	            .attr("cx", polar2xy(0, 0)[0])
+	            .attr("cy", polar2xy(0, 0)[1])
+	            .attr("r", bigRadius)
+	            .attr("fill", "white")
+	            .attr("stroke", "black")
+	            .attr("stroke-width", "1px");
+
+	        var lines = svg.selectAll("line")
+	            .data(dataset.probs)
+	            .enter()
+	            .append("line")
+	            .attr("x1", function(d) {
+	                var theta = littleTheta*d.nuc1;
+	                return( polar2xy(bigRadius, theta)[0] );
+	            })
+	            .attr("y1", function(d) {
+	                var theta = littleTheta*d.nuc1;
+	                return( polar2xy(bigRadius, theta)[1] );
+	            })
+	            .attr("x2", function(d) {
+	                var theta = littleTheta*d.nuc2;
+	                return( polar2xy(bigRadius, theta)[0] );
+	            })
+	            .attr("y2", function(d) {
+	                var theta = littleTheta*d.nuc2;
+	                return( polar2xy(bigRadius, theta)[1] );
+	            })
+	            .style("stroke", "black")
+	            .attr("opacity", function(d) { return d.p;});
+	
+			
+			if (dataset.included != null) {
+				var probs_and_included = dataset.probs.concat(dataset.included);
+				var included = svg.selectAll("line")
+					.data(probs_and_included)
+					.enter()
+					.append("line")
+					.attr("x1", function(d) {
+						var theta = littleTheta*d.nuc1;
+						return( polar2xy(bigRadius, theta)[0] );
+					})
+					.attr("x2", function(d) {
+						var theta = littleTheta*d.nuc2;
+						return( polar2xy(bigRadius, theta)[0] );
+					})
+					.attr("y1", function(d) {
+						var theta = littleTheta*d.nuc1;
+						return( polar2xy(bigRadius, theta)[1] );
+					})
+					.attr("y2", function(d) {
+						var theta = littleTheta*d.nuc2;
+						return( polar2xy(bigRadius, theta)[1] );
+					})
+						.style("stroke", "red")
+						.style("stroke-width", 2);
+			}
+			
+			if (dataset.excluded != null) {
+				if (dataset.included != null) {
+					var probs_included_excluded = probs_and_included.concat(dataset.excluded);
+				} else {
+					var probs_included_excluded = dataset.probs.concat(dataset.excluded);
+				}
+				
+				var excluded = svg.selectAll("line")
+					.data(probs_included_excluded)
+					.enter()
+					.append("line")
+					.attr("x1", function(d) {
+						var theta = littleTheta*d.nuc1;
+						return( polar2xy(bigRadius, theta)[0] );
+					})
+					.attr("x2", function(d) {
+						var theta = littleTheta*d.nuc2;
+						return( polar2xy(bigRadius, theta)[0] );
+					})
+					.attr("y1", function(d) {
+						var theta = littleTheta*d.nuc1;
+						return( polar2xy(bigRadius, theta)[1] );
+					})
+					.attr("y2", function(d) {
+						var theta = littleTheta*d.nuc2;
+						return( polar2xy(bigRadius, theta)[1] );
+					})
+					.style("stroke-dasharray", "6 6")
+					.style("stroke", "blue")
+					.style("stroke-width", 2);
+			}
+		
+		
+			
+	        var labels = svg.selectAll("text")
+	            .data(dataset.nucleotides)
+	            .enter()
+	            .append("text")
+	            .attr("x", function(d) {
+	                var theta = littleTheta*d;
+	                return( polar2xy(bigRadius + 10, theta)[0] );
+	            })
+	            .attr("y", function(d) {
+	                var theta = littleTheta*d;
+	                return( polar2xy(bigRadius + 10, theta)[1] );
+	            })
+	            .text(function(d) {
+	                if(d % 5 === 0){
+	                    return d;
+	                }
+	            })
+	            .attr("font-family", "sans-serif")
+	            .attr("font-size", "14px")
+				.style("text-anchor", "middle");
+
+		}
+
+		</script>
+		<br>
+    </body>
+</html>

@@ -1,0 +1,62 @@
+;  TOIG of: Pode1.Edgen  check: 1002  from: 1  to: 501
+;  
+;  
+; LOCUS       PANMTSENE    7755 bp ds-DNA             ORG       08-APR-1987
+; DEFINITION  Podospora anserina mitochondrial epsilon-sen DNA.
+; ACCESSION   X03127
+; KEYWORDS    ATPase; inverted repeat sequence; plasmid; recombination joint;
+;             unidentified reading frame.
+; SOURCE      Mitochondrion Podospora anserina.
+;   ORGANISM  Mitochondrion Podospora anserina
+;             Mitochondria; Planta; Mycophyta; Ascomycetes.
+; REFERENCE   1  (bases 1 to 7755; enum. 1 to 7755)
+;   AUTHORS   Cummings,D.J., MacNeil,I.A., Domenico,J. and Matsuura,E.T.
+;   TITLE     Excision-amplification of mitochondrial DNA during senescence in
+;             Podospora anserina - DNA sequence analysis of three unique plasmids
+;   JOURNAL   J Mol Biol 185, 659-680 (1985)
+;   STANDARD  simple automatic
+; COMMENT     EMBL features not translated to GenBank features:
+;                key        from     to       description
+; 
+;                SITE        552    553       J1 junction (excision site of
+;             epsilo
+;                                             sen-DNA)
+;                SITE        553   6100       epsilon sen-DNA
+;                RPT         553    565       direct repeat 1
+;                INVREP      901    911       imp. inverted repeat A
+;                INVREP      912    922       imp. inverted repeat A'
+;                SITE        901    922       imp. palindrome
+;                RPT         927    956       imp. direct repeat 2 (CCT repeat
+;             uni
+;                SITE       1125   1274       ATPase 8
+;                INVREP     1414   1427       imp. inverted repeat B
+;                INVREP     1428   1441       imp. inverted repeat B'
+;                SITE       1414   1441       imp. palindrome
+;                RPT        1455   1474       imp. direct repeat 2 (CCT repeat
+;             uni
+;                SITE       1606   1746       URF 1a (exon 1)
+;                IVS        1747   3566       intron I
+;                SITE       3567   3713       URF 1b (exon 2)
+;                IVS        3714   6344       intron II
+;                RPT        4430   4467       imp. direct repeat 3
+;                RPT        5964   6001       imp. direct repeat 3
+;                SITE       6100   6101       J2 junction (excision site of
+;             epsilo
+;                                             sen-DNA)
+;                RPT        6101   6113       direct repeat 1
+;                SITE       6345   6441       URF 1c (exon 3)
+;                SITE       6383   6393       imp. palindrome
+;                IVS        6442   7755       intron III
+; BASE COUNT     2741 a   1095 c   1260 g   2659 t
+; ORIGIN
+; 
+;     Pode1.Seq  Length: 501  January 16, 1989  17:42  Check: 1002  ..
+pode1edgen
+CGTAGGTCGCACACACAGCGTCTCTAGTTCTTTTANNNAAAAAGAAAGAGAGAATTATTATTTACAAAAA
+TACTTNNNTAGTATATGTAAATAATAGTAAAAATAAAGCGTAGGAAACTTTATTTGGCCTTTAAACCATC
+AAATTGACGGGGAAGCCTTAAAGCTATTTAGACTAAGCAAAATAAGTAATTAAGTTGTGGCTCGAAAGAG
+GTATAGTAACACATAAATAGATGCACGAAAGGAAATAGGTAATCCGCAGCCAAGTGCCATATATTTATTG
+TATAAGTAATGGTGTGCAGTTCATCGACTAGACGGTGGTTGGTATTATTGTTCACATAATACTTAAGATA
+TAGTCAGACCCTATCCGAAAGGATACAGGAATATTTATATAATATTCTGTTAAATGGATAATATTTTTAT
+TATTCAGGGAGAAGGCCCCTGCCTAAATCTACAGTATGATTTTTTTTATACATGATTAAAAGGGGAGATT
+CGTATTATGGA1

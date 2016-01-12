@@ -1,0 +1,70 @@
+% This script is run as a first step in almost all the functions. It
+% establishes variables such as the name and length of the RNA sequence,
+% any bases or base pairs that are forced to be paired or unpaired, and the
+% name of needed paths. Feel free to add things to this script as needed.
+
+%**************************************************************************
+%************************** MODEL PARAMETERS ******************************
+%**************************************************************************
+
+max_conf_splits = 5; % max number of conflicting basepairs to look for
+hibp_cutoff = .999; % probability need to be a highly probable base pair
+
+stem_thresh = 2; % By how many factors we allow the proabilities of bps in a stem to differ
+min_cluster = 0.001; % Throw away clusters smaller than this
+MI_cutoff = 2; % Stop when weighted MI falls below this cutoff
+
+num_MIBPs = 100; % number of MIBPs, a.k.a. the number of leaves in the tree - 1 
+entropy_cutoff = .002; % entropy cutoff used in "entropy constraints"
+
+eta = 0.01;  % throw away pairs with prob less than eta or greater than 1-eta
+             % when calculating MIBP (see luan lin's thesis for why) 
+delta = 0.001;  % minimum bp prob
+
+FORCED_PAIRS = []; 
+FORCED_NONPAIRS = [];
+FORCED_UNPAIRED = [];
+
+
+%**************************************************************************
+%*********************** PATHS ********************************************
+%**************************************************************************
+
+% you should change these for your computer
+
+% path to RNAstructure folder:
+RNASTRUCT_PATH = 'RNAstructure/';
+
+% path to specific RNAstructure programs
+CT2DOT_PROG = [RNASTRUCT_PATH,'exe/ct2dot'];
+DOT2CT_PROG = [RNASTRUCT_PATH,'exe/dot2ct'];
+DATA_PATH = [RNASTRUCT_PATH,'data_tables'];
+PARTITION_PROG = [RNASTRUCT_PATH,'exe/partition'];
+PROB_PROG = [RNASTRUCT_PATH,'exe/ProbabilityPlot'];
+STOCHASTIC_PROG = [RNASTRUCT_PATH,'exe/stochastic'];
+ENSEMBLE_ENERGY_PROG = [RNASTRUCT_PATH,'exe/EnsembleEnergy'];
+DRAW_PROG = [RNASTRUCT_PATH,'exe/draw'];
+EFN_PROG = [RNASTRUCT_PATH,'exe/efn2'];
+FOLD_PROG = [RNASTRUCT_PATH,'exe/fold'];
+DATAPATH = [RNASTRUCT_PATH,'data_tables'];
+
+% path to data tables for counting
+PARTITION_COUNT = PARTITION_PROG;
+ENERGY_COUNT = ENSEMBLE_ENERGY_PROG;
+DATAPATH_COUNT = 'new_data_tables';
+
+% path to gcc compiler
+GCC = '/usr/bin/gcc';
+
+% ********** NUMBER OF SAMPLES IN STOCHASTIC SAMPLING *********************
+
+NUM_SAMPLES = 1000;
+
+%**************************************************************************
+%******************************* RNA SEQUENCE *****************************
+%**************************************************************************
+RNA_NAME = '5s-1_2bit_0001min'; % What files created will be named
+RNA_NAME = ['results/',RNA_NAME];
+RNA_LENGTH = 121; % Length of the RNA molecule
+seqfile = 'dm_test_set/5s3_220.seq'; % Location of the seqeunce file (.fa or .seq)
+native_structure = 'dm_test_set/5s3_220.ct'; % Location of the native structure file (leave empty if unknown)

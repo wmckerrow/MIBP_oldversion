@@ -1,0 +1,4 @@
+Telomerase.lis refers to vertebrate telomerase structures.  These were
+made on 5/25/09 by DHM using stockholm2ct.  The source was rfam 9.1
+(Januray 2009) from a stockholm file of the seed sequences fetched on
+5/25/09.

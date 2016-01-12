@@ -1,0 +1,18 @@
+Changes to RNAstructure
+
+in RNAstructure/src/structure.h
+change short int to int at
+line 22
+line 27
+line 29
+line 31
+
+possibly only following actually need to be int
+ndbl
+ngu
+nmod
+npair
+nforbid
+nnopair
+
+
