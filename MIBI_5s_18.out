@@ -1,0 +1,208 @@
+## SLURM PROLOG ###############################################################
+##    Job ID : 16949135
+##  Job Name : MIBI_5s_18
+##  Nodelist : node423
+##      CPUs : 1
+##  Mem/Node : 8192 MB
+## Directory : /gpfs/scratch/wmckerro/MIBP_runs/5s_18
+##   Started : Fri Jul 21 15:04:41 EDT 2017
+###############################################################################
+
+Starting MATLAB in single-threaded, command-line mode...
+To launch the MATLAB GUI or to run with multiple threads, use 'matlab-threaded'.
+
+If you have any questions about how to correctly run MATLAB on Oscar, see
+
+  https://www.ccv.brown.edu/doc/matlab.html
+
+or contact 'support@ccv.brown.edu'.
+
+
+                            < M A T L A B (R) >
+                  Copyright 1984-2014 The MathWorks, Inc.
+                    R2014a (8.3.0.532) 64-bit (glnxa64)
+                             February 11, 2014
+
+ 
+To get started, type one of these: helpwin, helpdesk, or demo.
+For product information, visit www.mathworks.com.
+ 
+rm: cannot remove `results/5s_18_2bit*MI.txt': No such file or directory
+sampling at root
+calculating energy
+
+num_MIBPs_left =
+
+   100
+
+Calculating MI for 
+
+tree_path =
+
+     ''
+
+
+
+ans =
+
+    4.7983
+
+
+max_MI =
+
+    4.7983
+
+splitting 86 93 in cluster 
+0
+1
+
+num_MIBPs_left =
+
+    99
+
+Calculating MI for 
+
+tree_path =
+
+0
+
+
+ans =
+
+    7.6850
+
+Calculating MI for 
+
+tree_path =
+
+1
+
+
+ans =
+
+    3.4380
+
+
+max_MI =
+
+    2.8733
+
+splitting 75 103 in cluster 1
+10
+11
+
+num_MIBPs_left =
+
+    98
+
+Calculating MI for 
+
+tree_path =
+
+10
+
+
+ans =
+
+    2.3380
+
+Calculating MI for 
+
+tree_path =
+
+11
+
+
+ans =
+
+    2.1302
+
+
+max_MI =
+
+    1.2619
+
+Calculating cluster info
+
+n =
+
+     3
+
+
+n =
+
+     3
+
+calculating low entropy info
+
+i =
+
+     1
+
+
+i =
+
+     2
+
+
+i =
+
+     3
+
+string:
+constrained Q
+   6.4245e+24
+
+unconstrained Q
+   6.4422e+24
+
+string:
+0
+constrained Q
+   1.0546e+24
+
+unconstrained Q
+   1.0578e+24
+
+string:
+1
+constrained Q
+   5.3744e+24
+
+unconstrained Q
+   5.3840e+24
+
+string:
+10
+constrained Q
+   2.9553e+24
+
+unconstrained Q
+   2.9615e+24
+
+string:
+11
+constrained Q
+   2.4206e+24
+
+unconstrained Q
+   2.4230e+24
+
+tree path:
+tree path:
+0
+tree path:
+1
+tree path:
+10
+tree path:
+11
+conf_prob 0:0.41803
+conf_prob 10:0.11984
+native_clust_prob:0.37611
+exp_clust_prob:0.014361
+rand_clust_prob:0.11984
+num_structs:5.393027515298646e+30,3.884797262436302e+23
+prob_le:0.99817
+entropy:42.3334,32.246
+Finished execution at Fri Jul 21 15:10:39 EDT 2017

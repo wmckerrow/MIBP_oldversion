@@ -7,11 +7,7 @@
 %************************** MODEL PARAMETERS ******************************
 %**************************************************************************
 
-max_conf_splits = 5; % max number of conflicting basepairs to look for
-hibp_cutoff = .999; % probability need to be a highly probable base pair
-
-stem_thresh = 2; % By how many factors we allow the proabilities of bps in a stem to differ
-min_cluster = 0.001; % Throw away clusters smaller than this
+%min_cluster = 0.001; % Throw away clusters smaller than this
 MI_cutoff = 2; % Stop when weighted MI falls below this cutoff
 
 num_MIBPs = 100; % number of MIBPs, a.k.a. the number of leaves in the tree - 1 
@@ -33,7 +29,7 @@ FORCED_UNPAIRED = [];
 % you should change these for your computer
 
 % path to RNAstructure folder:
-RNASTRUCT_PATH = 'RNAstructure/';
+RNASTRUCT_PATH = '/users/wmckerro/RNAstructureMIBP/';
 
 % path to specific RNAstructure programs
 CT2DOT_PROG = [RNASTRUCT_PATH,'exe/ct2dot'];
@@ -51,7 +47,7 @@ DATAPATH = [RNASTRUCT_PATH,'data_tables'];
 % path to data tables for counting
 PARTITION_COUNT = PARTITION_PROG;
 ENERGY_COUNT = ENSEMBLE_ENERGY_PROG;
-DATAPATH_COUNT = 'new_data_tables';
+DATAPATH_COUNT = [RNASTRUCT_PATH,'new_data_tables'];
 
 % path to gcc compiler
 GCC = '/usr/bin/gcc';
@@ -63,8 +59,9 @@ NUM_SAMPLES = 1000;
 %**************************************************************************
 %******************************* RNA SEQUENCE *****************************
 %**************************************************************************
-RNA_NAME = '5s-1_2bit_0001min'; % What files created will be named
+RNA_NAME = '5s_18_2bit'; % What files created will be named
 RNA_NAME = ['results/',RNA_NAME];
-RNA_LENGTH = 121; % Length of the RNA molecule
-seqfile = 'dm_test_set/5s3_220.seq'; % Location of the seqeunce file (.fa or .seq)
-native_structure = 'dm_test_set/5s3_220.ct'; % Location of the native structure file (leave empty if unknown)
+seqfile = '/users/wmckerro/RNAstructureMIBP/dm_test_set/5s_18.seq'; % Location of the seqeunce file (.fa or .seq)
+native_structure = '/users/wmckerro/RNAstructureMIBP/dm_test_set/5s_18.ct'; % Location of the native structure file (leave empty if unknown)
+[RNA_LENGTH RNA_LENGTH] = system(['wc -l ',native_structure]);
+RNA_LENGTH = str2num(strtok(RNA_LENGTH))-1; % Length of the RNA molecule

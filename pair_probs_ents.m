@@ -12,8 +12,12 @@ entropies = zeros(n,1);
 structs = zeros(n,1);
 for i=1:length(tree_strings)
     cluster = tree_strings{i};
-    mibps = dlmread([RNA_NAME '_' cluster '_mibps.txt']);
-    pairs{i} = mibps(cluster == '1',:); % A cell listing the pairs present in each cluster
+    if length(cluster) > 0
+        mibps = dlmread([RNA_NAME '_' cluster '_mibps.txt']);
+        pairs{i} = mibps(cluster == '1',:); % A cell listing the pairs present in each cluster
+    else
+        pairs{i} = zeros(0,2)
+    end
     probs(i) = B_get_probmass2(cluster,energy); % Probability of each cluster
     entropies(i) = real(total_basepair_entropy(cluster)); % Sum of base pair entropy for each cluster
     create_constraint_file([], [], pairs{i}, [], 'temp.CON'); 

@@ -17,4 +17,4 @@ for i = 1:length(all_tree_strings)
         tree_depth = length(all_tree_strings{i});
     end
 end
-system(['sed s/TREE_DEPTH_HERE/',num2str(tree_depth),'/ temp2.html > visualization.html']);
+system(['sed s/TREE_DEPTH_HERE/',num2str(tree_depth)+1,'/ temp2.html > visualization.html']);

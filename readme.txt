@@ -1,11 +1,6 @@
-To install, you will need to make a few small changes to RNA structure. Follow
-instructions in changes_to_RNAstructure.txt and copy the exe files in
-./RNAstructure/exe or modify program_constants.txt to reflect the new location
-of RNAstructure.
-
 (1) To run the executable, make this folder you current matlab directory and
 run the master_script_hibp.m script. It runs modified RNAstructure executable,
-which were compiled for Linux (CentOS release 6.5). Using standard
+which were copmiled for Linux (CentOS release 6.5). Using standard
 RNAstructure executables is okay, but the probability of entropy constraints
 will not be correct.
 

@@ -1,0 +1,28 @@
+
+Starting MATLAB in single-threaded, command-line mode...
+To launch the MATLAB GUI or to run with multiple threads, use 'matlab-threaded'.
+
+If you have any questions about how to correctly run MATLAB on Oscar, see
+
+  https://www.ccv.brown.edu/doc/matlab.html
+
+or contact 'support@ccv.brown.edu'.
+
+
+                            < M A T L A B (R) >
+                  Copyright 1984-2014 The MathWorks, Inc.
+                    R2014a (8.3.0.532) 64-bit (glnxa64)
+                             February 11, 2014
+
+ 
+To get started, type one of these: helpwin, helpdesk, or demo.
+For product information, visit www.mathworks.com.
+ 
+native_clust_prob:0.37611
+exp_clust_prob:0.37974
+rand_clust_prob:0.33334
+num_structs:5.393027515298646e+30,3.884797262436302e+23
+prob_le:0.99817
+entropy:42.3334,32.246
+rm: cannot remove `temp*': No such file or directory
+Finished execution at Tue Jul 25 09:03:21 EDT 2017

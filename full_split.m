@@ -37,8 +37,10 @@ B_split_cluster(split_cluster, old_mibps, split_bp);
 
 tree_strings(split_node_index) = []; % eliminate the split cluster from tree_strings
 all_tree_strings{end+1} = str1;
-tree_strings{end+1} = str2;
 all_tree_strings{end+1} = str2;
+tree_strings{end+1} = str1;
+tree_strings{end+1} = str2;
+
 
 make_all_probs_files_vB({str1,str2});
 
